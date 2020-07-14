@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    a(href="/user") Back to all lists
+    if list
+        h1 #{list.title}
+        form(action = "/list/" + list.id + "/newTask", method = "POST")
+         div
+            label(for = "title" required minlength=1) New Task Title:
+            input(name = "title" value = "")
+         button(type = "submit") Create Task
+        br
+        if list.Tasks && list.Tasks.length > 0
+            form(action = "/list/" + list.id + "/update", method = "POST")
+                each task in list.Tasks
+                    input(name = task.id, type = "checkbox", checked = task.completed
+                          onchange="this.form.submit()")
+                    label(for = task.id) #{task.title}
+                    br
+    else
+        h1 List not found

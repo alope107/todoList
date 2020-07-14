@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1 Todo lists for #{username}
+    form(action = "/list/new", method = "POST")
+         div
+            label(for = "List Title") New List Title:
+            input(name = "title" value = "" required minlength=1)
+         button(type = "submit") Create List
+    br
+    br
+    each list in lists
+        form(action = "/list/delete/" + list.id, method = "POST")
+            label
+                a(href="/list/" + list.id) #{list.title}
+            button(type = "submit") Delete
+    
